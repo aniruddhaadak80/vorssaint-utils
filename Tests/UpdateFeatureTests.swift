@@ -1300,8 +1300,9 @@ enum UpdateFeatureTests {
                 && AppUpdatesSupport.versionCore("0.0.402") == "0.0.402",
                "the revision after a comma is not part of the version")
         suite.expect(AppUpdatesSupport.versionCore(" v2.0.11.1,260925abc ") == "2.0.11.1"
-                && AppUpdatesSupport.compare("v2.0.11.1", "2.0.11.1") == .orderedSame
-                && AppUpdatesSupport.compare("V2.0.11.1", "2.0.11.1") == .orderedSame,
+                && AppUpdatesSupport.versionCore("V2.0.11.1") == "2.0.11.1"
+                && !AppUpdatesSupport.isNewer("v2.0.11.1", than: "2.0.11.1")
+                && !AppUpdatesSupport.isNewer("2.0.11.1", than: "V2.0.11.1"),
                "a leading v/V and surrounding whitespace normalize before numeric comparison")
         suite.expect(!AppUpdatesSupport.isNewer("2.0.11.1", than: "v2.0.11.1")
                 && AppUpdatesSupport.isNewer("v2.0.11.2", than: "2.0.11.1")
